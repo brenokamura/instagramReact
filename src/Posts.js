@@ -2,19 +2,13 @@ import React from "react";
 
 function PostProps(props) {
   const [count, setCount] = React.useState("");
-  const [counts, setCounts] = React.useState("heart-outline");
-  const [icons, setIcons] = React.useState("hidden");
+  const [heart, setHeart] = React.useState("heart-outline");
   const [bookmark, setBookmark] = React.useState("bookmark-outline");
   function color() {
-    if (counts === "heart-outline") {
-      setCount("heart");
-      setCounts("heart");
-      setIcons("react");
-    } else {
-      setCount("");
-      setCounts("heart-outline");
-      setIcons("hidden");
+    if (heart === "heart-outline" ){
+      setHeart("heart")
     }
+ 
   }
   return (
     <div class="post">
@@ -28,19 +22,21 @@ function PostProps(props) {
         </div>
       </div>
       <div class="conteudo">
-        <img onClick={() => color()} src={props.src2} />
-        <ion-icon id={icons} name="heart"></ion-icon>
+        <img  src={props.src2} onClick={color}/>
+        
       </div>
       
     
       <div class="fundo">
         <div class="acoes">
           <div>
-            <ion-icon
-              id={count}
-              onClick={() => color()}
-              name={counts}
-            ></ion-icon>
+          <ion-icon class="heartLike"
+              name={heart}
+              onClick={() =>
+                heart === "heart-outline" 
+                  ? setHeart("heart")
+                  : setHeart("heart-outline") 
+              }></ion-icon>
             <ion-icon name="chatbubble-outline"></ion-icon>
             <ion-icon name="paper-plane-outline"></ion-icon>
           </div>

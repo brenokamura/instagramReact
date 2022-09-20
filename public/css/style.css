@@ -403,3 +403,7 @@ ion-icon {
   margin-left: 5px;
 }
 
+.heartLike{
+  border-color: black;
+  color: red;
+}
