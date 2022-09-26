@@ -8,12 +8,21 @@ export default function Usuario() {
 
     function inserirNome() {
         const nomePrompt = prompt("Qual é o se nome?")
-        setNome(nomePrompt)
+        if (!nomePrompt) {
+            alert("Escreva um nome válido!")
+        }else{
+            setNome(nomePrompt)
+        }
     }
 
     function inserirFoto() {
         const fotoPrompt = prompt("Insira o link de uma foto aqui!")
-        setFoto(fotoPrompt)
+        if (!fotoPrompt) {
+            alert("Escreva um link válido!")
+        }else{
+            setFoto(fotoPrompt)
+        }
+        
     }
 
     return (

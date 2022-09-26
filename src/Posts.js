@@ -1,67 +1,77 @@
 import React from "react";
 
 function PostProps(props) {
-  const [count, setCount] = React.useState("");
-  const [heart, setHeart] = React.useState("heart-outline");
+  const [recebeuLike, setrecebeuLike] = React.useState(props.isLiked);
   const [bookmark, setBookmark] = React.useState("bookmark-outline");
-  function color() {
-    if (heart === "heart-outline" ){
-      setHeart("heart")
-    }
- 
-  }
-  return (
-    <div class="post">
-      <div class="topo">
-        <div class="usuario">
-          <img src={props.src} />
-          {props.usuario}
-        </div>
-        <div class="acoes">
-          <ion-icon name="ellipsis-horizontal"></ion-icon>
-        </div>
-      </div>
-      <div class="conteudo">
-        <img  src={props.src2} onClick={color}/>
-        
-      </div>
-      
-    
-      <div class="fundo">
-        <div class="acoes">
-          <div>
-          <ion-icon class="heartLike"
-              name={heart}
-              onClick={() =>
-                heart === "heart-outline" 
-                  ? setHeart("heart")
-                  : setHeart("heart-outline") 
-              }></ion-icon>
-            <ion-icon name="chatbubble-outline"></ion-icon>
-            <ion-icon name="paper-plane-outline"></ion-icon>
-          </div>
-          <div>
-            <ion-icon
-              name={bookmark}
-              onClick={() =>
-                bookmark === "bookmark-outline" 
-                  ? setBookmark("bookmark")
-                  : setBookmark("bookmark-outline")
-              }></ion-icon>
-          </div>
-        </div>
+  const [contador, setContador] = React.useState(props.texto2)
 
-        <div class="curtidas">
-          <img src={props.src3} />
-          <div class="texto">
-            Curtido por <strong>{props.texto1}</strong> e{" "}
-            <strong>{props.texto2}</strong>
-          </div>
+  function mudaLikeImagem() {
+    if (!recebeuLike) {
+      setrecebeuLike(true)
+      setContador(contador + 1)
+    }
+    
+  }
+
+  function mudaLike() {
+    if (!recebeuLike) {
+      setContador(contador + 1)
+    } else {
+      setContador(contador - 1)
+    }
+    setrecebeuLike(!recebeuLike)
+  }
+
+
+return (
+  <div class="post">
+    <div class="topo">
+      <div class="usuario">
+        <img src={props.src} />
+        {props.usuario}
+      </div>
+      <div class="acoes">
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+      </div>
+    </div>
+    <div class="conteudo" onClick={mudaLikeImagem}>
+      <img src={props.src2} />
+    </div>
+
+
+    <div class="fundo">
+      <div class="acoes">
+        <div>
+          {recebeuLike ? (
+            <ion-icon onClick={mudaLike} name="heart" class="like"></ion-icon>
+          ) : (
+            <ion-icon onClick={mudaLike} name="heart-outline" ></ion-icon>
+          )}
+          <ion-icon name="chatbubble-outline"></ion-icon>
+          <ion-icon name="paper-plane-outline"></ion-icon>
+        </div>
+        <div>
+          <ion-icon
+            name={bookmark}
+            onClick={() =>
+              bookmark === "bookmark-outline"
+                ? setBookmark("bookmark")
+                : setBookmark("bookmark-outline")
+            }></ion-icon>
+        </div>
+      </div>
+
+      <div class="curtidas">
+        <img src={props.src3} />
+        <div class="texto">
+          Curtido por <strong>{props.texto1}</strong> e{" "}
+          <strong> outras {contador} pessoas</strong>
         </div>
       </div>
     </div>
-  );
-}
+  </div>
+);
+          }
 
 export default function Posts() {
   const post = [
@@ -71,7 +81,8 @@ export default function Posts() {
       src2: "assets/img/gato-telefone.svg",
       src3: "assets/img/respondeai.svg",
       texto1: "respondeai",
-      texto2: "outras 101.523 pessoas"
+      texto2: 101523,
+      isLiked: false
     },
     {
       usuario: "barked",
@@ -79,7 +90,8 @@ export default function Posts() {
       src2: "assets/img/dog.svg",
       src3: "assets/img/adorable_animals.svg",
       texto1: "adorable_animals",
-      texto2: "outras 99.159 pessoas"
+      texto2: 99159,
+      isLiked: true
     }
   ];
 
@@ -95,6 +107,7 @@ export default function Posts() {
             src3={index.src3}
             texto1={index.texto1}
             texto2={index.texto2}
+            isLiked={index.isLiked}
           />
         ))}
       </div>
